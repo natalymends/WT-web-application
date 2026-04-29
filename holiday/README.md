@@ -1,18 +1,19 @@
-
 # Holiday Calendar
 
 An interactive international holiday calendar web application that allows users to explore public and cultural holidays from around the world.
 
 ---
 
+URL: https://holiday-calendar-ccch.onrender.com
+
+---
+
 ## Project Structure
 
 ```
-holiday-calendar/
+holiday/
 ├── backend/
-│   ├── config/
-│   │   ├── db.js                        # MongoDB connection setup
-│   │   └── session.js                   # Express session configuration
+│   ├── .babelrc
 │   ├── controllers/
 │   │   ├── adminController.js           # Admin-only operations
 │   │   ├── authController.js            # Register, login, logout, user CRUD
@@ -30,9 +31,19 @@ holiday-calendar/
 │   │   ├── favouriteRoutes.js           # Favourite holiday routes
 │   │   ├── holidayRoutes.js             # Holiday routes
 │   │   └── suggestionRoutes.js          # Suggestion routes
-│   ├── index.js                         # Main entry point
+│   ├── tests/
+│   │   └── controllers/  
+│   │       ├── adminController.test.js         # adminController test case 
+│   │       ├── authController.test.js          # authController test case 
+│   │       ├── favouriteController.test.js.    # favouriteController test case
+│   │       ├── holidayController.test.js       # holidayController test case
+│   │       └── suggestionController.test.js    # suggestionController test case
+│   ├── index.js    # Main entry point
+│   ├── vitest.config.cjs
+│   ├── package-lock.json
 │   └── package.json
 ├── frontend/
+│   ├── README.md
 │   ├── public/
 │   ├── src/
 │   │   ├── assets/
@@ -40,10 +51,13 @@ holiday-calendar/
 │   │   ├── App.css
 │   │   ├── index.css
 │   │   └── main.jsx
+│   ├── eslint.config.js
 │   ├── index.html
+│   ├── vite.config.js
+│   ├── package-lock.json
 │   └── package.json
 ├── README.md
-└── coversheet.pdf
+└── .DS_Store
 ```
 
 ---
@@ -143,12 +157,14 @@ holiday-calendar/
 All admin endpoints check that the logged-in session user has the role `'admin'`. Non-admin users receive a `403 Access Denied` response.
 
 **Suggestion management:**
+
 - `GET /admin/suggestions` — Lists all suggestions. Filterable by `?status=pending/approved/rejected`.
 - `PUT /admin/suggestion/:suggestionId/approve` — Approves a suggestion and automatically writes it into the holidays collection.
 - `PUT /admin/suggestion/:suggestionId/reject` — Rejects a suggestion.
 - `DELETE /admin/suggestion/:suggestionId` — Deletes a suggestion entirely.
 
 **User management:**
+
 - `GET /admin/users` — Lists all users (password hashes excluded).
 - `DELETE /admin/user/:userId` — Deletes a user. Admins cannot delete their own account.
 - `PUT /admin/user/:userId/role` — Promotes or demotes a user's role between `'user'` and `'admin'`.
@@ -159,13 +175,13 @@ All admin endpoints check that the logged-in session user has the role `'admin'`
 
 Validation is implemented in every controller before any database operation. Errors are returned as a structured JSON object so the frontend can display field-specific messages.
 
-| Controller | Fields Validated |
-|---|---|
-| `authController` | firstName, lastName, email format, password length |
-| `holidayController` | name, country, date, month range, category enum, description length |
-| `favouriteController` | holidayId presence, holiday existence |
-| `suggestionController` | name, country, date format, description length |
-| `adminController` | role enum, status enum |
+| Controller             | Fields Validated                                                    |
+| ---------------------- | ------------------------------------------------------------------- |
+| `authController`       | firstName, lastName, email format, password length                  |
+| `holidayController`    | name, country, date, month range, category enum, description length |
+| `favouriteController`  | holidayId presence, holiday existence                               |
+| `suggestionController` | name, country, date format, description length                      |
+| `adminController`      | role enum, status enum                                              |
 
 ---
 
@@ -182,7 +198,42 @@ Validation is implemented in every controller before any database operation. Err
 
 ## Division of Labour
 
-Work was evenly divided among all team members.
+Work was evenly divided among all team members. For further detail, please see the below chart:
+
+<!--
+ _____________________________________________________________________________________________
+|   Karen   |   (did initial work and a lot of it)                                            |
+|           | + Initialised the project                                                       |
+|           |   - Started ReadMe, routes, models, index.js                                    |
+|           |   - initialised gitlab                                                          |
+|           |   - Organised Documentation                                                     |
+|           | + Wrote initial routes, models, and controllers                                 |
+|___________|_________________________________________________________________________________
+|  Nataly   |  (more large things)                                                            |
+|           | + Developed all unit tests                                                      |
+|           |   - Tested each of the functions available                                      |
+|           |   - Fixed any bugs that came up during testing                                  |
+|                - Resolved merge conflicts                                                   |
+|           | + Created demo using Bruno API Testing                                          |
+|              + Deployed the API online using Render                                         |
+|___________|_________________________________________________________________________________
+|   Percy   | (a lot of small things)                                                         |
+|           | + Documentation                                                                 |
+|           |   - Division of Work (w/Rafiq)                                                  |
+|           |   - Ensured comments across pages                                               |
+|           | + MongoDB                                                                       |
+|           |   - Initialised and created connection                                          |
+|           |   - Figured out issues regarding connection                                     |
+|           | + Bug Smasher                                                                   |
+|           |   - Fixed bugs throughout program                                               |
+|           |      (MongoDb connection, routes, models, controllers)                          |
+|___________|_________________________________________________________________________________
+|   Rafiq   |  (had a lot of stuff happening, still was very active with us)                  |
+|           | + Documentation                                                                 |
+|           |   - Division of Work (w/Percy)                                                  |
+|           | + Communicated and jumped in to help across assignment                          |
+|           | + Began client side development                                                 |
+|___________|_________________________________________________________________________________ -->
 
 ---
 
@@ -194,4 +245,5 @@ Work was evenly divided among all team members.
 - [express-session npm package](https://www.npmjs.com/package/express-session)
 - [connect-mongo npm package](https://www.npmjs.com/package/connect-mongo)
 - [MongoDB Atlas](https://www.mongodb.com/atlas)
+- [Vitest](https://vitest.dev/)
 
