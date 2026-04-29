@@ -1,6 +1,6 @@
 # WT Web Application — Client
 
-This folder contains the frontend for the Holiday Calendar project. It's a React application scaffolded with Vite, providing authentication, an interactive calendar UI, event creation (including recurrence), and integration with the backend API hosted in the `holiday/backend` folder.
+This folder contains the frontend for the Holiday Calendar project. It's a React application scaffolded with Vite, providing authentication, an interactive calendar UI, event creation (including recurrence).
 
 ---
 
@@ -86,18 +86,6 @@ client/
 - `utils/dateUtils.js` — helpers for formatting dates and computing calendar ranges.
 - `utils/recurrenceUtils.js` — parse/serialize recurrence rules for UI and backend interchange.
 - `utils/env.js` — runtime configuration helpers (API base URL from environment).
-
-10. Testing
-
-- Components and hooks are structured for unit testing; add test files and a test runner if you want test coverage for the client.
-
----
-
-## How frontend maps to backend
-
-- Authentication flows use the backend auth routes for session management and cookie-based persistence.
-- Holidays and event-related operations use the backend endpoints for listing, creating, updating, and deleting resources.
-- Favourite and suggestion UI features call the related backend endpoints where applicable.
 
 ---
 
